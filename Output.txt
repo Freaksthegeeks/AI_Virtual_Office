@@ -1,97 +1,49 @@
-**Project Summary**
-
-**Project Name:** Men's Saloon Architecture in Chennai
-**Project Description:** Design and development of a luxurious men's saloon in Chennai, providing a unique and relaxing experience for clients.
-**Project Goals:**
-- Create a modern and elegant ambiance
-- Offer high-quality grooming services
-- Enhance customer satisfaction
-- Increase brand visibility
-**Project Timeline:** 6 months
-**Project Budget:** ₹ 50 lakhs
-
-**Architecture**
-
-**Saloon Layout:**
-
-- Reception Area: 10 sqm
-- Grooming Area: 20 sqm
-- Barber Area: 15 sqm
-- Relaxation Area: 25 sqm
-- Storage Area: 5 sqm
-
-**Design Elements:**
-
-- Modern and sleek furniture
-- LED lighting
-- Comfortable seating
-- Calming color scheme
-- High-quality flooring
-
-**Technology Integration:**
-
-- Wi-Fi connectivity
-- Digital payment systems
-- Online booking and appointment management
-- Social media integration
-
-**Task List**
-
-**Phase 1: Planning and Design (Weeks 1-4)**
-
-1. Conduct market research and analysis (Week 1)
-2. Create a detailed project plan and timeline (Week 2)
-3. Design the saloon layout and architecture (Week 3)
-4. Finalize the design and make necessary changes (Week 4)
-
-**Phase 2: Construction and Installation (Weeks 5-12)**
-
-1. Obtain necessary permits and approvals (Week 5)
-2. Begin construction and installation of furniture and fixtures (Week 6)
-3. Install technology infrastructure (Week 7)
-4. Complete construction and installation (Week 8-12)
-
-**Phase 3: Testing and Deployment (Weeks 13-18)**
-
-1. Conduct thorough testing of technology infrastructure (Week 13)
-2. Test and refine the online booking and appointment management system (Week 14)
-3. Train staff on new technology and systems (Week 15)
-4. Launch the saloon and begin operations (Week 16-18)
-
-**Testing**
-
-**Test Plan:**
-
-- Functional testing of technology infrastructure
-- User acceptance testing of online booking and appointment management system
-- Performance testing of digital payment systems
-- Security testing of Wi-Fi connectivity and social media integration
-
-**Test Cases:**
-
-- Test the online booking and appointment management system
-- Test the digital payment systems
-- Test the Wi-Fi connectivity
-- Test the social media integration
-
-**Deployment**
-
-**Deployment Plan:**
-
-- Deploy the technology infrastructure
-- Deploy the online booking and appointment management system
-- Deploy the digital payment systems
-- Deploy the Wi-Fi connectivity and social media integration
-
-**Deployment Timeline:**
-
-- Week 16: Deploy technology infrastructure
-- Week 17: Deploy online booking and appointment management system
-- Week 18: Deploy digital payment systems, Wi-Fi connectivity, and social media integration
-
-**Deployment Team:**
-
-- IT team for technology infrastructure deployment
-- Marketing team for online booking and appointment management system deployment
-- Finance team for digital payment systems deployment
-- Operations team for Wi-Fi connectivity and social media integration deployment
+```json
+{
+  "task_id": "T003",
+  "project": "Industrial Scaled Kitchen System for Hotel",
+  "phase": "requirements",
+  "assigned_to": "arch",
+  "spec": {
+    "goals": [
+      "Enable efficient food preparation and service for large hotel kitchens",
+      "Support high-volume food production with minimal waste and labour",
+      "Integrate with existing hotel systems for seamless operations"
+    ],
+    "constraints": [
+      "Must support 500+ meals per hour",
+      "Data integration with hotel PMS and inventory systems",
+      "Compliance with food safety and hygiene regulations"
+    ],
+    "user_stories": [
+      "As a chef I want to manage inventory and orders in real-time so I can plan production",
+      "As a kitchen manager I want to monitor food quality and safety so I can prevent contamination",
+      "As a hotel manager I want to track kitchen performance and costs so I can make informed decisions"
+    ],
+    "non_functional": [
+      "System uptime 99.9%",
+      "Data encryption and access control",
+      "Scalable architecture for future growth"
+    ],
+    "acceptance_criteria": [
+      "Inventory levels updated in real-time",
+      "Food safety alerts triggered within 1 minute of detection",
+      "Kitchen performance metrics available in hotel dashboard"
+    ]
+  },
+  "features": [
+    {"id": "F001", "name": "Inventory management", "priority": 1, "status": "defined"},
+    {"id": "F002", "name": "Food safety monitoring", "priority": 1, "status": "defined"},
+    {"id": "F003", "name": "Kitchen performance tracking", "priority": 2, "status": "defined"},
+    {"id": "F004", "name": "Data integration with hotel systems", "priority": 2, "status": "defined"}
+  ],
+  "workflow": [
+    {"agent": "arch", "task": "Design system architecture for Industrial Scaled Kitchen System for Hotel â€” high-availability web app with real-time inventory management, food safety monitoring, and kitchen performance tracking, integrating with hotel PMS and inventory systems."},
+    {"agent": "design", "task": "Design UI/UX for Industrial Scaled Kitchen System for Hotel â€” key screens: inventory dashboard, food safety alerts, kitchen performance metrics, and data integration setup."},
+    {"agent": "testing", "task": "Write test plan for Industrial Scaled Kitchen System for Hotel â€” cover inventory management, food safety monitoring, kitchen performance tracking, data integration, and high-availability testing."},
+    {"agent": "deploy", "task": "Create deployment config for Industrial Scaled Kitchen System for Hotel â€” services: Next.js frontend, FastAPI backend, PostgreSQL, Redis cache, and AWS RDS for database."}
+  ],
+  "handoff_notes": "Industrial scaled kitchen system for large hotel. 500+ meals per hour. Data integration with hotel PMS and inventory systems. Compliance with food safety and hygiene regulations. High-availability and scalability required.",
+  "blockers": []
+}
+```

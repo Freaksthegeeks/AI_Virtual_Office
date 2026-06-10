@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 from llm_tracker import LLMTracker
 
-SKILL_FILE = "prompts/project_manager.txt"
+SKILL_FILE = "prompts/project_manager.md"
 DEFAULT_MODEL = "mistralai/Mistral-7B-Instruct-v0.3"
 
 

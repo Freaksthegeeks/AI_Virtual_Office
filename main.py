@@ -5,16 +5,7 @@ from llm_tracker import LLMTracker
 
 load_dotenv()
 
-SYSTEM_PROMPT = """
-You are a Project Manager Agent.
-
-Generate:
-1. Project Summary
-2. Architecture
-3. Tasks
-4. Testing
-5. Deployment
-"""
+SYSTEM_PROMPT = open("prompts/project_manager.md", "r").read()
 
 llm = LLMTracker()
 
