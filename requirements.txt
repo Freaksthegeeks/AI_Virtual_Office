@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+langfuse
+huggingface_hub
+python-dotenv
+groq

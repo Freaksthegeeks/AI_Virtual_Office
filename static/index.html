@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Manager Agent</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Project Manager Agent</h1>
+      <p>Enter a project idea and get a simple architecture workflow.</p>
+
+      <textarea id="projectIdea" placeholder="Describe the project idea..." rows="6"></textarea>
+      <button id="submitBtn">Generate Architecture Flow</button>
+
+      <section id="resultSection" class="hidden">
+        <h2>Output</h2>
+        <pre id="resultOutput"></pre>
+      </section>
+
+      <section id="usageSection">
+        <h2>Local Usage</h2>
+        <div class="usage-controls">
+          <button id="refreshUsageBtn">Refresh Usage</button>
+        </div>
+
+        <div id="usageSummary" class="usage-summary">No data yet.</div>
+        <div id="usageRecords" class="usage-records"></div>
+      </section>
+
+      <div id="status" class="status"></div>
+    </main>
+
+    <script>
+      const submitBtn = document.getElementById("submitBtn");
+      const projectIdeaInput = document.getElementById("projectIdea");
+      const resultSection = document.getElementById("resultSection");
+      const resultOutput = document.getElementById("resultOutput");
+      const status = document.getElementById("status");
+
+      submitBtn.addEventListener("click", async () => {
+        const projectIdea = projectIdeaInput.value.trim();
+        if (!projectIdea) {
+          status.textContent = "Please enter a project idea first.";
+          status.className = "status status-error";
+          return;
+        }
+
+        status.textContent = "Generating... please wait.";
+        status.className = "status status-loading";
+        resultSection.classList.add("hidden");
+
+        try {
+          const response = await fetch("/generate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ project_idea: projectIdea }),
+          });
+
+          if (!response.ok) {
+            let errorData = {};
+            try {
+              errorData = await response.json();
+            } catch {
+              const errorText = await response.text();
+              throw new Error(errorText || "Request failed");
+            }
+            const errorMsg = errorData.error || "Request failed";
+            const hint = errorData.hint ? "\n\n" + errorData.hint : "";
+            throw new Error(errorMsg + hint);
+          }
+
+          const data = await response.json();
+          if (data.error) {
+            throw new Error(data.error + (data.hint ? "\n\n" + data.hint : ""));
+          }
+          resultOutput.textContent = data.result || "No result returned.";
+          resultSection.classList.remove("hidden");
+          status.textContent = "Completed.";
+          status.className = "status status-success";
+        } catch (error) {
+          status.textContent = "Error: " + error.message;
+          status.className = "status status-error";
+        }
+      });
+
+      // Local usage fetch and render
+      const refreshUsageBtn = document.getElementById("refreshUsageBtn");
+      const usageSummary = document.getElementById("usageSummary");
+      const usageRecords = document.getElementById("usageRecords");
+
+      async function fetchLocalUsage() {
+        usageSummary.textContent = "Loading usage...";
+        usageRecords.innerHTML = "";
+        try {
+          const res = await fetch("/local-usage");
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const data = await res.json();
+          usageSummary.textContent = `Records: ${data.total_records} — Estimated cost: $${data.total_cost_usd}`;
+
+          const records = data.records || [];
+          if (records.length === 0) {
+            usageRecords.textContent = "No usage records found.";
+            return;
+          }
+
+          // show most recent 50
+          const recent = records.slice(-50).reverse();
+          usageRecords.innerHTML = recent
+            .map((r) => {
+              const ts = r.timestamp ? new Date(r.timestamp * 1000).toLocaleString() : "-";
+              const usage = r.usage && Object.keys(r.usage).length ? JSON.stringify(r.usage) : "{}";
+              return `
+                <div class="usage-record">
+                  <div class="usage-record-meta"><strong>${ts}</strong> — <em>${r.event_name || ''}</em> — ${r.model || r.provider || ''}</div>
+                  <pre class="usage-record-body">${escapeHtml(usage)}</pre>
+                </div>`;
+            })
+            .join("\n");
+        } catch (err) {
+          usageSummary.textContent = "Error loading usage: " + err.message;
+          usageRecords.textContent = "";
+        }
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/\"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      refreshUsageBtn.addEventListener("click", fetchLocalUsage);
+      // fetch once on load
+      fetchLocalUsage();
+    </script>
+  </body>
+</html>
